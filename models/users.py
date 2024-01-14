@@ -12,8 +12,8 @@ class User(Model):
     email = Column(String)
     password = Column(String)
     profile = Column(String, nullable=True)
-    is_admin = Column(Boolean)
-    is_seller = Column(Boolean)
+    is_admin = Column(Boolean, default=False)
+    is_seller = Column(Boolean, default=False)
 
     # Relationships
 
@@ -27,9 +27,9 @@ class User(Model):
     comments = relationship('Comment', back_populates='user')
 
     # Order
-    basket = relationship('Order', back_populates='user')
+    orders = relationship('Order', back_populates='user')
 
-    # Basket
-    basket = relationship('Basket', back_populates='user')
+    # Discount Code
+    discount_codes = relationship('DiscountCode', back_populates='user')
 
 
