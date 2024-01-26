@@ -7,13 +7,9 @@ class UserBase(BaseModel):
     last_name: str
     username: str
     email: str
-    profile: Optional[str]
+    profile: Optional[str] = None
     is_admin: bool = False
     is_seller: bool = False
-
-
-class UserCreate(UserBase):
-    password: str
 
 
 class User(UserBase):
@@ -21,4 +17,3 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
-
