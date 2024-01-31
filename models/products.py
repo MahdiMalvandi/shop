@@ -1,9 +1,14 @@
 from sqlalchemy import Integer, Column, Boolean, String, ForeignKey
-from settings.database import Model
+from settings.database import Base
 from sqlalchemy.orm import relationship
 
+from models.comments import Comment
+from .discount_codes import DiscountCode
+from .categories import Category
+from models import baskets, orders
 
-class Product(Model):
+
+class Product(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
@@ -37,16 +42,16 @@ class Product(Model):
     discount_codes = relationship("DiscountCode", back_populates='products')
 
     # Category
-    category = relationship("Category", back_populates='products')
+    category = relationship("models.categories.Category", back_populates='products')
 
     # Basket
-    baskets = relationship("Basket", back_populates='products')
+    baskets = relationship("models.baskets.Basket", back_populates='products')
 
     # Order
     orders = relationship("Order", back_populates='products')
 
 
-class ProductImage(Model):
+class ProductImage(Base):
     __tablename__ = 'product_images'
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
@@ -58,10 +63,10 @@ class ProductImage(Model):
     # Relationships
 
     # Product
-    product = relationship("Product", back_populates='images')
+    products = relationship("Product", back_populates='images')
 
 
-class ProductAttribute(Model):
+class ProductAttribute(Base):
     __tablename__ = 'product_attributes'
     id = Column(Integer, primary_key=True, index=True)
     key = Column(String)
@@ -73,27 +78,27 @@ class ProductAttribute(Model):
     # Relationships
 
     # Product
-    product = relationship("Product", back_populates='attributes')
+    products = relationship("Product", back_populates='attributes')
 
 
-class ProductColor(Model):
+class ProductColor(Base):
     __tablename__ = 'product_colors'
     id = Column(Integer, primary_key=True, index=True)
 
     # Foreign Keys
-    product_id = Column(Integer, ForeignKey('products.id'))
+    product_slug = Column(String, ForeignKey('products.slug'))
     color_id = Column(Integer, ForeignKey('colors.id'))
 
     # Relationships
 
     # Product
-    product = relationship("Product", back_populates='colors')
+    products = relationship("Product", back_populates='colors')
 
     # Through
-    color = relationship("Color", back_populates='through')
+    colors = relationship("Color", back_populates='through')
 
 
-class Color(Model):
+class Color(Base):
     __tablename__ = 'colors'
     id = Column(Integer, primary_key=True, index=True)
     color = Column(String)
@@ -102,3 +107,7 @@ class Color(Model):
 
     # Through
     through = relationship("ProductColor", back_populates='colors')
+
+    baskets = relationship('Basket', back_populates='colors')
+
+    orders = relationship("models.orders.Order", back_populates='colors')

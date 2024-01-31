@@ -1,11 +1,12 @@
 from sqlalchemy import Integer, Column, Boolean, String, ForeignKey
-from settings.database import Model
+from settings.database import Base
+from models.products import Product
 from sqlalchemy.orm import relationship
 
 
-class User(Model):
+class User(Base):
     __tablename__ = 'users'
-    id = Column(Integer, primary=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     first_name = Column(String)
     last_name = Column(String)
     username = Column(String)
@@ -21,7 +22,7 @@ class User(Model):
     products = relationship('Product', back_populates='seller')
 
     # Basket
-    basket = relationship('Basket', back_populates='user')
+    baskets = relationship('Basket', back_populates='user')
 
     # Comment
     comments = relationship('Comment', back_populates='user')
@@ -31,5 +32,8 @@ class User(Model):
 
     # Discount Code
     discount_codes = relationship('DiscountCode', back_populates='user')
+
+    # Category
+    category = relationship('Category', back_populates='user')
 
 

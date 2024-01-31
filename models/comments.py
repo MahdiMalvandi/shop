@@ -1,9 +1,10 @@
+
 from sqlalchemy import Integer, Column, Boolean, String, ForeignKey
-from settings.database import Model
+from settings.database import Base
 from sqlalchemy.orm import relationship
 
 
-class Comment(Model):
+class Comment(Base):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
     body = Column(String, nullable=False)

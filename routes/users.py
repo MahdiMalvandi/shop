@@ -1,10 +1,15 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from models.users import User
 
-from passlib.context import CryptContext
-from pydantic import BaseModel
+from dependencies import get_db
 
 router = APIRouter()
 
-# region Authentication
-pwd_cxt = CryptContext(schemes=)
-# endregion
+
+@router.delete("/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == user_id).first()
+    db.delete(user)
+    db.commit()
+    return 'deleted'

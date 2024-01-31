@@ -1,25 +1,25 @@
 from sqlalchemy import Integer, Column, Boolean, String, ForeignKey
-from settings.database import Model
+from settings.database import Base
 from sqlalchemy.orm import relationship
 
 
-class Baskets(Model):
+class Basket(Base):
     __tablename__ = 'baskets'
     id = Column(Integer, primary_key=True, index=True)
     count = Column(Integer)
 
     # Foreign Keys
-    color_selected = Column(Integer, ForeignKey('colors'))
+    color_selected = Column(Integer, ForeignKey('colors.id'))
     user_id = Column(Integer, ForeignKey("users.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
 
     # Relationships
 
     # Product
-    products = relationship('Product', back_populates='basket')
+    products = relationship('models.products.Product', back_populates='baskets')
 
     # User
-    user = relationship('User', back_populates='basket')
+    user = relationship('User', back_populates='baskets')
 
     # Color
-    color = relationship('Color', back_populates='basket')
+    colors = relationship('Color', back_populates='baskets')
