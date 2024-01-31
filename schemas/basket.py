@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
-from users import User
-from products import Product, ProductColor
+from .users import User
+from .products import Product, ProductColor
 
 
 class BasketBase(BaseModel):

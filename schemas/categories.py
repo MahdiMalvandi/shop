@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-from products import Product
-
 
 class CategoryBase(BaseModel):
     title: str
@@ -11,6 +9,5 @@ class Category(CategoryBase):
     id: int
 
 
-class CategoryWithPosts(CategoryBase):
-    products: list[Product]
+
 

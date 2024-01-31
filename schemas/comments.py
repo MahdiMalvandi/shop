@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from users import User
-from products import Product
+from .users import User
+from .products import Product
 
 
 class CommentBase(BaseModel):

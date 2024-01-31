@@ -1,8 +1,8 @@
 from typing import Optional
 
 from pydantic import BaseModel
-from products import Product, ProductColor
-from users import User
+from .products import Product, ProductColor
+from .users import User
 
 
 class OrderBase(BaseModel):

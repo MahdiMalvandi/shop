@@ -1,8 +1,8 @@
 from typing import Optional
 
 from pydantic import BaseModel
-from categories import Category
-from users import User
+from .categories import Category
+from .users import User
 
 
 class ProductBase(BaseModel):
@@ -42,3 +42,10 @@ class ProductCreate(ProductBase):
     product_color: Optional[str | list]
     product_attributes: Optional[str | list]
     product_images: Optional[str | list]
+
+
+class CategoryWithPosts(Category):
+    products: list[Product]
+
+class UserWithProducts(User):
+    products: list[Product]
