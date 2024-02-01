@@ -13,7 +13,7 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     price = Column(Integer)
-    discount = Column(Integer)
+    discount = Column(Integer, nullable=True)
     slug = Column(String)
     count = Column(Integer)
 
@@ -73,7 +73,7 @@ class ProductAttribute(Base):
     value = Column(String)
 
     # Foreign Keys
-    product_id = Column(Integer, ForeignKey('products.id'))
+    product_slug = Column(Integer, ForeignKey('products.slug'))
 
     # Relationships
 

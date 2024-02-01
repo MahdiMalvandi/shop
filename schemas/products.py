@@ -9,7 +9,6 @@ class ProductBase(BaseModel):
     title: str
     price: float
     discount: float
-    slug: str
     count: int
 
 
@@ -34,18 +33,19 @@ class Product(ProductBase):
     product_colors: list[ProductColor]
     product_attributes: list[ProductAttribute]
     product_images: list[ProductImage]
+    slug: str
 
 
 class ProductCreate(ProductBase):
-    category: str
-    seller: str
-    product_color: Optional[str | list]
+    category_id: id
+    product_colors: Optional[str | list]
     product_attributes: Optional[str | list]
     product_images: Optional[str | list]
 
 
 class CategoryWithPosts(Category):
     products: list[Product]
+
 
 class UserWithProducts(User):
     products: list[Product]
